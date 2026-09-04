@@ -38,6 +38,8 @@ Wireshark was installed inside the Windows 11 lab VM and the active **Ethernet**
 
 The unfiltered capture contained a mixture of traffic including TCP, DNS, and TLS 1.3 packets. This provided the baseline dataset for the protocol-specific analysis.
 
+![Wireshark unfiltered packet capture showing mixed TCP, DNS, and TLS traffic](screenshots/01-wireshark-capture.png)
+
 ## 2. ICMP Analysis
 
 To generate ICMP traffic, I ran:
@@ -61,6 +63,8 @@ The capture showed traffic between:
 8.8.8.8    →  10.0.2.15 Echo (ping) reply
 ```
 
+![Wireshark ICMP filter showing Echo Request and Echo Reply traffic](screenshots/03-icmp-analysis.png)
+
 A detailed ICMP packet inspection showed:
 
 | Field | Observed Value |
@@ -70,6 +74,8 @@ A detailed ICMP packet inspection showed:
 | Protocol | ICMP |
 | Type | `8` — Echo Request |
 | Code | `0` |
+
+![Detailed ICMP Echo Request packet showing Type 8 and Code 0](screenshots/04-icmp-packet-details.png)
 
 **ICMP Type 8** represents an Echo Request, while **ICMP Type 0** represents an Echo Reply.
 
@@ -104,6 +110,8 @@ One captured DNS query showed:
 | Query Name | `example.com` |
 | Record Type | `AAAA` |
 
+![DNS query from the Windows VM for example.com](screenshots/02-dns-query-details.png)
+
 An `AAAA` record requests the IPv6 address for a hostname.
 
 ### DNS Response
@@ -114,6 +122,8 @@ A captured DNS response from `192.168.1.1` to `10.0.2.15` showed a successful re
 - `172.66.147.243`
 
 The response time shown in Wireshark was approximately **4.63 ms**.
+
+![DNS response showing A records returned for example.com](screenshots/05-dns-response-details.png)
 
 An `A` record returns IPv4 addresses, while an `AAAA` record returns IPv6 addresses.
 
@@ -134,6 +144,8 @@ The first three packets in the conversation showed a complete TCP three-way hand
 2. 104.46.162.224 → 10.0.2.15        443 → 55456   [SYN, ACK]
 3. 10.0.2.15      → 104.46.162.224   55456 → 443   [ACK]
 ```
+
+![Wireshark TCP conversation showing SYN, SYN-ACK, and ACK](screenshots/06-tcp-three-way-handshake.png)
 
 This sequence represents:
 
@@ -190,6 +202,12 @@ Wireshark-Network-Traffic-Analysis/
 ├── investigation/
 │   └── network-analysis-report.md
 └── screenshots/
+    ├── 01-wireshark-capture.png
+    ├── 02-dns-query-details.png
+    ├── 03-icmp-analysis.png
+    ├── 04-icmp-packet-details.png
+    ├── 05-dns-response-details.png
+    ├── 06-tcp-three-way-handshake.png
     └── README.md
 ```
 
